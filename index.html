@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Collaboration Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <h2>Real-Time Shared Notes</h2>
+    <textarea id="note" rows="15" cols="60"></textarea>
+
+    <script>
+        var socket = io();
+
+        var textarea = document.getElementById("note");
+
+        textarea.addEventListener("keyup", function () {
+            socket.send(textarea.value);
+        });
+
+        socket.on("message", function (msg) {
+            textarea.value = msg;
+        });
+    </script>
+</body>
+</html>
